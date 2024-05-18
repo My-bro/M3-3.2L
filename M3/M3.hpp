@@ -10,6 +10,9 @@
 #include <SFML/Graphics.hpp>
 #include "Sprite.hpp"
 #include <memory>
+#include <cmath>
+
+const float PI = 3.14159265;
 
 class M3 {
 
@@ -20,6 +23,7 @@ class M3 {
         Sprite _M3;
 
         void displayM3(std::shared_ptr<sf::RenderWindow> window);
+        void rotateExhaust(std::shared_ptr<sf::RenderWindow> window);
     
     protected:
     private:

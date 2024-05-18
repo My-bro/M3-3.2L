@@ -10,6 +10,9 @@
 #include "M3.hpp"
 #include "Display.hpp"
 
+
+
+
 int main()
 {
     Display display(1920, 1080, "M3 3.2L", 60, sf::Color::Black);
@@ -21,6 +24,7 @@ int main()
                 display._window->close();
             }
         }
+        M3.rotateExhaust(display._window);
         display._window->clear();
         M3.displayM3(display._window);
         display._window->display();

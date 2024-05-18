@@ -20,6 +20,7 @@ class Sprite {
         void displaySprite(sf::RenderWindow *window);
         sf::Texture _texture;
         sf::Sprite _sprite;
+        sf::Vector2f _origin;
     protected:
     private:
 };
