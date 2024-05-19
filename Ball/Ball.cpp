@@ -7,6 +7,7 @@
 
 #include "Ball.hpp"
 
+
 extern int score;
 
 void Ball_Factory::collision()
@@ -50,10 +51,22 @@ void Ball_Factory::collision()
     }
 }
 
+Ball_Factory::Ball_Factory()
+{
+    if (this->explosion_buffer.loadFromFile("assets/explosion.wav")) {
+        this->explosion.setBuffer(this->explosion_buffer);
+    }
+    if (this->end_explosion_buffer.loadFromFile("assets/end_explosion.wav")) {
+        this->end_explosion.setBuffer(this->end_explosion_buffer);
+    }
+}
 
 void Ball_Factory::createBallIfMousePressed(const sf::Sprite& M3_Exhaust)
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (this->explosion.getStatus() != sf::Sound::Playing) {
+            this->explosion.play();
+        }
         std::shared_ptr<Ball> ball = std::make_shared<Ball>();
         ball->_type = BallType::EXHAUST;
         ball->_ball.setRadius(10);
@@ -69,6 +82,12 @@ void Ball_Factory::createBallIfMousePressed(const sf::Sprite& M3_Exhaust)
         };
         ball->_old_position = M3_Exhaust.getPosition();
         _balls.push_back(ball);
+    }
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (this->explosion.getStatus() == sf::Sound::Playing) {
+            this->explosion.stop();
+            this->end_explosion.play();
+        }
     }
 }
 

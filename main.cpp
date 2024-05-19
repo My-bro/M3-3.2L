@@ -10,6 +10,9 @@
 #include "M3.hpp"
 #include "Display.hpp"
 #include "Ball.hpp"
+#include "Menu.hpp"
+
+
 
 int score = 0;
 
@@ -18,8 +21,22 @@ int main()
     Display display(1920, 1080, "M3 3.2L", 60, sf::Color::Black);
     M3 M3(display._window);
     Ball_Factory exhaust_projectile;
+    Menu menu(display._window);
+    Ball_Factory ball_factory;
 
-    display._time2 = std::make_shared<sf::Time>(display._clock2->getElapsedTime());
+    while (display._window->isOpen()) {
+        while (display._window->pollEvent(*display._event)) {
+            if (display._event->type == sf::Event::Closed) {
+                display._window->close();
+            }
+        }
+        menu.ifButtonHooverd();
+        if (menu.ifButtonClicked()) {
+            break;
+        }
+        menu.displayMenu();
+        display._window->display();
+    }
 
     while (display._window->isOpen()) {
         
@@ -52,6 +69,7 @@ int main()
 
         display._window->clear();
         M3.displayM3(display._window);
+        M3.playTheme();
         exhaust_projectile.drawBalls(display._window);
         exhaust_projectile.destroyBallsIfTooFar();
         display._window->display();
