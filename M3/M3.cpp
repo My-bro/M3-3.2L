@@ -27,6 +27,9 @@ M3::M3(std::shared_ptr<sf::RenderWindow> window)
     float y2 = m3Position.y + spriteSize.height - spriteSize.height / 2 + 10;
 
     this->_Exhaust._sprite.setPosition(x2 + 20, y2 + 20);
+    if (this->_theme_buffer.loadFromFile("assets/theme.wav")) {
+        this->_theme.setBuffer(this->_theme_buffer);
+    }
 }
 
 void M3::displayM3(std::shared_ptr<sf::RenderWindow> window)
@@ -47,5 +50,12 @@ void M3::rotateExhaust(std::shared_ptr<sf::RenderWindow> window)
         this->_Exhaust._sprite.setRotation(rotation);
         sf::Vector2u size =this->_Exhaust._sprite.getTexture()->getSize();
         this->_Exhaust._sprite.setOrigin(size.x / 2, size.y / 2);
+    }
+}
+
+void M3::playTheme()
+{
+    if (this->_theme.getStatus() != sf::Sound::Playing) {
+        this->_theme.play();
     }
 }

@@ -8,6 +8,7 @@
 #ifndef BALL_HPP_
 #define BALL_HPP_
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 #include <iostream>
 #include <vector>
@@ -24,7 +25,6 @@ class Ball {
         sf::Vector2f _current_position;
         sf::Vector2f _old_position;
         sf::Vector2f _acceleration;
-
         void updatePosition(float deltaTime) {
             sf::Vector2f velocity = _current_position - _old_position;
             _old_position = _current_position;
@@ -41,11 +41,14 @@ class Ball {
 
 class Ball_Factory {
     public:
-        Ball_Factory() = default;
+        Ball_Factory();
         ~Ball_Factory() = default;
         std::vector<std::shared_ptr<Ball>> _balls;
         sf::Vector2f _gravity = {0, 80};
-
+        sf::SoundBuffer explosion_buffer;
+        sf::Sound explosion;
+        sf::SoundBuffer end_explosion_buffer;
+        sf::Sound end_explosion;
         void update(float deltaTime) {
             applyGravity();
             updatePosition(deltaTime);

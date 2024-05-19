@@ -7,6 +7,7 @@
 
 #ifndef M3_HPP_
 #define M3_HPP_
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "Sprite.hpp"
 #include <memory>
@@ -21,9 +22,11 @@ class M3 {
         M3(std::shared_ptr<sf::RenderWindow> window);
         Sprite _Exhaust;
         Sprite _M3;
-
+        sf::SoundBuffer _theme_buffer;
+        sf::Sound _theme;
         void displayM3(std::shared_ptr<sf::RenderWindow> window);
         void rotateExhaust(std::shared_ptr<sf::RenderWindow> window);
+        void playTheme();
     
     protected:
     private:

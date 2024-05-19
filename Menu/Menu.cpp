@@ -38,6 +38,7 @@ bool Menu::ifButtonClicked()
         sf::Vector2f worldPos = this->_window->mapPixelToCoords(mousePos);
         if (this->play._sprite.getGlobalBounds().contains(worldPos)) {
             this->startup_sound.play();
+            while (this->startup_sound.getStatus() == sf::Sound::Playing) {}
             return true;
         }
     }
