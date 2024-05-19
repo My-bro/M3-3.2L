@@ -9,6 +9,7 @@ SRC = 	Ball/Ball.cpp\
 		Display/Display.cpp\
 		Display/Sprite.cpp\
 		M3/M3.cpp\
+		Menu/Menu.cpp\
 		main.cpp
 
 OBJ = $(SRC:.cpp=.o)
@@ -19,9 +20,9 @@ CXX = g++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++20
 
-SFMLFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+SFMLFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-CPPFLAGS = -I./include -I./M3 -I./Display -I./Ball
+CPPFLAGS = -I./include -I./M3 -I./Display -I./Ball -I./Menu
 
 all: $(NAME)
 
