@@ -34,7 +34,7 @@ int main()
         display._window->clear();
         M3.displayM3(display._window);
         ball_factory.drawBalls(display._window);
-        
+        ball_factory.destroyBallsIfTooFar();
         display._window->display();
     }
     return 0;
