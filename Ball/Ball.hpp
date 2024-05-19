@@ -97,6 +97,15 @@ class Ball_Factory {
             }
         }
 
+        void destroyBallsIfTooFar() {
+            for (auto it = _balls.begin(); it != _balls.end();) {
+                if (((*it)->_current_position.y > 1080) || ((*it)->_current_position.x > 1920) || ((*it)->_current_position.x < 0) || ((*it)->_current_position.y < 0)) {
+                    it = _balls.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+        }
     protected:
     private:
 };
