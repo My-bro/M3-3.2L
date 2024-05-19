@@ -33,6 +33,7 @@ class Ball {
         sf::Vector2f _old_position;
         sf::Vector2f _acceleration;
         BallType _type;
+        bool _is_touched = false;
 
         void updatePosition(float deltaTime) {
             sf::Vector2f velocity = _current_position - _old_position;
@@ -80,7 +81,36 @@ class Ball_Factory {
 
         void drawBalls(std::shared_ptr<sf::RenderWindow> _window) {
             for (auto &ball : _balls) {
-                _window->draw(ball->_ball);
+                sf::Vector2f ball_position = ball->_ball.getPosition();
+                int size = 30;
+                if (ball->_type == BallType::EXHAUST) {
+                    for (int i = 0; i < size; i++) {
+                        sf::CircleShape circle(i);
+                        float t = static_cast<float>(i) / size;
+                        sf::Color color;
+                        if (t < 0.1f) {
+                            color.r = 255;
+                            color.g = 255;
+                            color.b = 255 - t * 10 * 255;
+                        } else if (t < 0.5f) {
+                            color.r = 255;
+                            color.g = 255 - (t - 0.1f) * 2.857 * (255 - 165);
+                            color.b = 0;
+                        } else {
+                            color.r = 255;
+                            color.g = 165 - (t - 0.5f) * 2 * 165;
+                            color.b = 0;
+                        }
+                        color.a = 255 - t * 255;
+
+                        circle.setFillColor(color);
+                        circle.setPosition(ball_position.x - i/2, ball_position.y - i/2);
+                        _window->draw(circle);
+                    }
+                }
+                if (ball->_type == BallType::ALLUMETTE) {
+                    _window->draw(ball->_ball);
+                }
             }
         }
 

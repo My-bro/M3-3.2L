@@ -11,8 +11,7 @@
 #include "Display.hpp"
 #include "Ball.hpp"
 
-
-
+int score = 0;
 
 int main()
 {
@@ -20,12 +19,20 @@ int main()
     M3 M3(display._window);
     Ball_Factory exhaust_projectile;
 
+    display._time2 = std::make_shared<sf::Time>(display._clock2->getElapsedTime());
+
     while (display._window->isOpen()) {
         
+        if (display._time2->asSeconds() > 60) {
+            display._window->close();
+            break;
+
+        }
+            
+
         display._time = std::make_shared<sf::Time>(display._clock->getElapsedTime());
         if (display._time->asSeconds() > display._time_sep) {
             display._clock->restart();
-            std::cout << "FPS: " << 1 / display._time->asSeconds() << std::endl;
             display._time_sep -= 0.01f;
             display.launch_it = true;
         }
@@ -50,5 +57,6 @@ int main()
         display._window->display();
         display.launch_it = false;
     }
+    std::cout << "Score: " << score << std::endl;
     return 0;
 }

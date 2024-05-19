@@ -7,6 +7,8 @@
 
 #include "Ball.hpp"
 
+extern int score;
+
 void Ball_Factory::collision()
 {
     int nb_balls = _balls.size();
@@ -21,6 +23,17 @@ void Ball_Factory::collision()
             sf::Vector2f collision_axis = ball->_current_position - other_ball->_current_position;
             float distance = sqrt(pow(collision_axis.x, 2) + pow(collision_axis.y, 2));
             if (distance < ball->_ball.getRadius() + other_ball->_ball.getRadius() && distance != 0) {
+                
+                if (ball->_type == BallType::EXHAUST && !ball->_is_touched && other_ball->_type == BallType::ALLUMETTE) {
+                    ball->_is_touched = true;
+                    score += 1;
+                }
+
+                if (other_ball->_type == BallType::EXHAUST && !other_ball->_is_touched && ball->_type == BallType::ALLUMETTE) {
+                    other_ball->_is_touched = true;
+                    score += 1;
+                }
+
                 collision_axis = collision_axis / distance;
                 sf::Vector2f relative_velocity = ball->_current_position - other_ball->_current_position;
                 float velocity_along_axis = relative_velocity.x * collision_axis.x + relative_velocity.y * collision_axis.y;

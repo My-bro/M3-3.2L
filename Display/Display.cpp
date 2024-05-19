@@ -15,5 +15,7 @@ Display::Display(int width, int height, std::string title, int framerate, sf::Co
     this->_window->clear(color);
     this->_clock = std::make_shared<sf::Clock>();
     this->_time = std::make_shared<sf::Time>();
+    this->_clock2 = std::make_shared<sf::Clock>();
+    this->_time2 = std::make_shared<sf::Time>();
 }
 
